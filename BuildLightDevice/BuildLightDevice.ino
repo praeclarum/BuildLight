@@ -66,9 +66,6 @@ void handleNotFound() {
 }
 
 void setup(void) {
-  pinMode(led, OUTPUT);
-  digitalWrite(led, 0);
-
   pinMode(redPin, OUTPUT);
   digitalWrite(redPin, 1);
   pinMode(greenPin, OUTPUT);
