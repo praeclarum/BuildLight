@@ -14,8 +14,34 @@ WebServer server(80);
 
 const int led = 13;
 
-void handleRoot() {
-  server.send(200, "text/plain", "hello char room!");
+void handleIndex() {
+  server.send(200, "text/plain", "hello chat room!");
+}
+
+void handleColor() {
+  uint8_t red = 0;
+  uint8_t green = 0;
+  uint8_t blue = 0;
+  for (uint8_t i = 0; i < server.args(); i++) {
+    auto name = server.argName(i);
+    auto value = atoi(server.arg(i).c_str());
+    if (name.length() > 0) {
+      switch (name[0]) {
+        case 'r':
+          red = value;
+          break;
+        case 'g':
+          green = value;
+          break;
+        case 'b':
+          blue = value;
+          break;
+      }
+    }
+  }
+  Serial.printf("SET COLOR red=%d, green=%d, blue=%d\n",
+    (int)red, (int)green, (int)blue);
+  server.send(200, "text/plain", "color set");
 }
 
 void handleNotFound() {
@@ -57,11 +83,9 @@ void setup(void) {
     Serial.println("MDNS responder started");
   }
 
-  server.on("/", handleRoot);
+  server.on("/", handleIndex);
 
-  server.on("/inline", []() {
-    server.send(200, "text/plain", "this works as well");
-  });
+  server.on("/color", HTTP_POST, handleColor);
 
   server.onNotFound(handleNotFound);
 

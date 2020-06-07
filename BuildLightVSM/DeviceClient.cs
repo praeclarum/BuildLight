@@ -2,6 +2,7 @@
 
 using System.Net.Http;
 using System.Threading.Tasks;
+using GLib;
 
 namespace BuildLightVSM
 {
@@ -9,19 +10,24 @@ namespace BuildLightVSM
     {
         static readonly string Host = "buildlight.local";
 
-        readonly HttpClient httpClient =
-            new HttpClient ();
-
         public DeviceClient()
         {
         }
 
-        public Task SetColorAsync(byte red, byte green, byte blue)
+        public async Task SetColorAsync(byte red, byte green, byte blue)
         {
-            var url = $"http://{Host}/color";
-            var color = new[] { red, green, blue };
-            var content = new ByteArrayContent(color);
-            return httpClient.PostAsync(url, content);
+            try
+            {
+                using var httpClient = new HttpClient();
+                var url = $"http://{Host}/color?r={red}&g={green}&b={blue}";
+                var color = new[] { red, green, blue };
+                var content = new ByteArrayContent(color);
+                await httpClient.PostAsync(url, content);
+            }
+            catch (Exception ex)
+            {
+                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString());
+            }
         }
     }
 }
