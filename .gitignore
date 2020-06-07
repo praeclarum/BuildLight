@@ -1,3 +1,8 @@
+
+
+BuildLightDevice/Secrets.h
+
+
 # globs
 Makefile.in
 *.userprefs
