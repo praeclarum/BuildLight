@@ -3,16 +3,18 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
+// Step 1. Create SECTRET_* defines
 #include "Secrets.h"
-
 const char* ssid = SECRET_SSID;
 const char* password = SECRET_PASSWORD;
+
+// Step 2. Connect pins 27 & 26 to RED and GREEN on light strip
+const int redPin = 27;
+const int greenPin = 26;
 
 const char* host = "buildlight";
 
 WebServer server(80);
-
-const int led = 13;
 
 void handleIndex() {
   server.send(200, "text/plain", "hello chat room!");
@@ -39,6 +41,10 @@ void handleColor() {
       }
     }
   }
+  
+  digitalWrite(redPin, red > 0 ? 0 : 1);
+  digitalWrite(greenPin, green > 0 ? 0 : 1);
+  
   Serial.printf("SET COLOR red=%d, green=%d, blue=%d\n",
     (int)red, (int)green, (int)blue);
   server.send(200, "text/plain", "color set");
@@ -62,7 +68,12 @@ void handleNotFound() {
 void setup(void) {
   pinMode(led, OUTPUT);
   digitalWrite(led, 0);
-  
+
+  pinMode(redPin, OUTPUT);
+  digitalWrite(redPin, 1);
+  pinMode(greenPin, OUTPUT);
+  digitalWrite(greenPin, 1);
+
   Serial.begin(115200);
   
   WiFi.mode(WIFI_STA);
