@@ -7,6 +7,8 @@ namespace BuildLightVSM
 {
     public class BuildEventsHandler
     {
+        readonly DeviceClient device = new DeviceClient();
+
         public BuildEventsHandler()
         {
             IdeApp.Initialized += HandleInitialized;
@@ -18,14 +20,35 @@ namespace BuildLightVSM
             IdeApp.ProjectOperations.EndBuild += HandleEndBuild;
         }
 
-        private void HandleStartBuild(object sender, BuildEventArgs args)
-        {
-            Log.Write("BuildLightVSM", LogLevelFlags.Info, "BUILD STARTED");
+        private async void HandleStartBuild(object sender, BuildEventArgs args)
+        {            
+            try
+            {
+                await device.SetColorAsync(255, 255, 0);
+            }
+            catch (Exception ex)
+            {
+                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString ());
+            }
         }
 
-        private void HandleEndBuild(object sender, BuildEventArgs args)
+        private async void HandleEndBuild(object sender, BuildEventArgs args)
         {
-            Log.Write("BuildLightVSM", LogLevelFlags.Info, "BUILD ENDED");
+            try
+            {
+                if (args.Success)
+                {
+                    await device.SetColorAsync(red: 0, green: 255, 0);
+                }
+                else
+                {
+                    await device.SetColorAsync(red: 255, green: 0, 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString());
+            }
         }
     }
 }

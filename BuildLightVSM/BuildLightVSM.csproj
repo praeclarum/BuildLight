@@ -5,4 +5,7 @@
   <ItemGroup>
     <PackageReference Include="MonoDevelop.Addins" Version="0.4.7" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
 </Project>
