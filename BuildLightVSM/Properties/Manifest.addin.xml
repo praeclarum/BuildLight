@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    <Runtime>
+    </Runtime>
+    <Extension path="/MonoDevelop/Ide/Commands">
+        <Command
+            id="BuildLightVSM.Commands.Dummy"
+            _label="Build Light Dummy"
+            defaultHandler="BuildLightVSM.DummyHandler" />
+    </Extension>
+    <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
+        <CommandItem id="BuildLightVSM.Commands.Dummy" />
+    </Extension>
+</ExtensionModel>
