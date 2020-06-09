@@ -9,7 +9,7 @@ Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
 1. ESP32 Dev Kit ([Amazon](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z))
 
-2. 5V RGB LED Strip ([Amazon](https://www.amazon.com/Lights-Waterproof-Changing-Bedroom-Kitchen/dp/B07Y54MTK4))
+2. 5V RGB LED Strip ([Amazon](https://www.amazon.com/Backlight-eTopxizu-Multi-Colour-Controller-Background/dp/B01FJUMP6M))
 
 3. Some wires/some solder.
 
