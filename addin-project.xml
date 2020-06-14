@@ -1,0 +1,7 @@
+<AddinProject appVersion="8.0">
+	<Project platforms="Mac Linux Win32">
+		<AddinFile>BuildLightVSM/bin/Release/net471/BuildLightVSM.dll</AddinFile>
+		<BuildFile>BuildLight.sln</BuildFile>
+		<BuildConfiguration>Release</BuildConfiguration>
+	</Project>
+</AddinProject>

@@ -30,10 +30,10 @@ using Mono.Addins.Description;
 [assembly: Addin(
     "BuildLightVSM",
     Namespace = "BuildLightVSM",
-    Version = "1.0"
+    Version = "1.0" 
 )]
 
-[assembly: AddinName("BuildLightVSM")]
+[assembly: AddinName("Build Light")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("BuildLightVSM")]
-[assembly: AddinAuthor("Frank A. Krueger")]
+[assembly: AddinDescription("Controls and RGB IoT Device based on build status")]
+[assembly: AddinAuthor("Frank and Friends")]
