@@ -10,6 +10,8 @@ namespace BuildLightVSM
     {
         static readonly string Host = "buildlight.local";
 
+        static string? IpAddress = null;
+
         public DeviceClient()
         {
         }
@@ -18,8 +20,9 @@ namespace BuildLightVSM
         {
             try
             {
+                var host = await GetIPAsync();
                 using var httpClient = new HttpClient();
-                var url = $"http://{Host}/color?r={red}&g={green}&b={blue}";
+                var url = $"http://{host}/color?r={red}&g={green}&b={blue}";
                 var color = new[] { red, green, blue };
                 var content = new ByteArrayContent(color);
                 await httpClient.PostAsync(url, content);
@@ -28,6 +31,21 @@ namespace BuildLightVSM
             {
                 LoggingService.LogError("Can't set color", ex);
             }
+        }
+
+        static async Task<string> GetIPAsync()
+        {
+            if (IpAddress is object)
+            {
+                return IpAddress;
+            }
+            var ips = await System.Net.Dns.GetHostAddressesAsync(Host);
+            if (ips.Length > 0)
+            {
+                IpAddress = ips[0].ToString ();
+                return IpAddress;
+            }
+            return Host;
         }
     }
 }
