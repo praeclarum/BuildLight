@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using MonoDevelop.Core;
 
@@ -12,20 +13,31 @@ namespace BuildLightVSM
 
         static string? IpAddress = null;
 
+        static Random chaosMonkey = new Random();
+
         public DeviceClient()
         {
         }
 
-        public async Task SetColorAsync(byte red, byte green, byte blue)
+        public async Task SetColorAsync(byte red, byte green, byte blue, CancellationToken token)
         {
             try
             {
+#if MONKEY
+                if (chaosMonkey.NextDouble() > 0.5)
+                {
+                    throw new Exception("CHAOS");
+                }
+#endif
                 var host = await GetIPAsync();
                 using var httpClient = new HttpClient();
                 var url = $"http://{host}/color?r={red}&g={green}&b={blue}";
                 var color = new[] { red, green, blue };
                 var content = new ByteArrayContent(color);
-                await httpClient.PostAsync(url, content);
+                if (!token.IsCancellationRequested)
+                {
+                    await httpClient.PostAsync(url, content, cancellationToken: token);
+                }
             }
             catch (Exception ex)
             {
