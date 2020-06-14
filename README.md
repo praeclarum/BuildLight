@@ -6,7 +6,8 @@ Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
 ## Installation
 
-Install the Visual Studio Extension called "Build Light" from the **Beta** Gallery.
+1. Install the Visual Studio Extension called "Build Light" from the **Beta** Gallery.
+2. Restart Visual Studio
 
 ## Bill of Materials
 
