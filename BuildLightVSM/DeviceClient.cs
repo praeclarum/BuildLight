@@ -1,8 +1,8 @@
 ﻿using System;
-
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GLib;
+using MonoDevelop.Core;
 
 namespace BuildLightVSM
 {
@@ -26,7 +26,7 @@ namespace BuildLightVSM
             }
             catch (Exception ex)
             {
-                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString());
+                LoggingService.LogError("Can't set color", ex);
             }
         }
     }

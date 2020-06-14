@@ -1,5 +1,5 @@
 ﻿using System;
-using GLib;
+using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 
@@ -28,7 +28,7 @@ namespace BuildLightVSM
             }
             catch (Exception ex)
             {
-                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString ());
+                LoggingService.LogError("Failed to handle start build", ex);
             }
         }
 
@@ -47,7 +47,7 @@ namespace BuildLightVSM
             }
             catch (Exception ex)
             {
-                Log.Write("BuildLightVSM", LogLevelFlags.Error, ex.ToString());
+                LoggingService.LogError("Failed to handle end build", ex);
             }
         }
     }
