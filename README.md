@@ -4,6 +4,9 @@ Display your IDE's build status using RGB LEDs and IoT devices!
 
 Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
+## Installation
+
+Install the Visual Studio Extension called "Build Light" from the **Beta** Gallery.
 
 ## Bill of Materials
 
@@ -21,9 +24,7 @@ Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
 3. Connect pin VIN to +5V on light strip.
 
-## Extension Steps
+## Extension Building Steps
 
 Load the extension in VS4Mac, then Run.
-
-Working on having this hosted in the Extension Gallery.
 
