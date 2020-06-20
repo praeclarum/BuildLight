@@ -6,7 +6,16 @@ Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
 ## Installation
 
+### Mac
+
 1. Install the Visual Studio Extension called "Build Light" from the **Beta** Gallery.
+2. Restart Visual Studio
+
+### Windows
+
+- [ ] Upload to [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
+
+1. Install the Visual Studio Extension called "Build Light" 
 2. Restart Visual Studio
 
 ## Bill of Materials
@@ -27,5 +36,18 @@ Created on [Frank Krueger's Twitch Stream](https://twitch.tv/FrankKrueger).
 
 ## Extension Building Steps
 
+### Mac
+
 Load the extension in VS4Mac, then Run.
 
+### Windows
+
+Set the VS project as the startup project.
+
+Run, open a new project in the experimental edition and build a project.
+
+### Other
+
+- [Setup](docs/Setup.md)
+- [Testing](docs/Testing.md)
+- [Errors](docs/Errors.md)
