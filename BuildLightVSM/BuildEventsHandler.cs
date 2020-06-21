@@ -4,6 +4,8 @@ using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 
+using BuildLight.Common;
+
 namespace BuildLightVSM
 {
     public class BuildEventsHandler
