@@ -11,6 +11,7 @@ namespace BuildLightVSM
     public class BuildEventsHandler
     {
         readonly DeviceClient device = new DeviceClient();
+        readonly DeviceList deviceList = new DeviceList();
 
         CancellationTokenSource? startCancellationTokenSource = null;
         CancellationTokenSource? endCancellationTokenSource = null;
@@ -24,6 +25,11 @@ namespace BuildLightVSM
         {
             IdeApp.ProjectOperations.StartBuild += HandleStartBuild;
             IdeApp.ProjectOperations.EndBuild += HandleEndBuild;
+            deviceList.RefreshAsync().ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                    Console.WriteLine(t.Exception);
+            });
         }
 
         private async void HandleStartBuild(object sender, BuildEventArgs args)
