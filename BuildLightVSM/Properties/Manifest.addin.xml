@@ -11,4 +11,13 @@
     <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
         <CommandItem id="BuildLightVSM.Commands.Dummy" />
     </Extension>
+    <Extension path="/MonoDevelop/Ide/Pads">
+        <Pad id="BuildLightVSM.DeviceListPad" 
+            defaultLayout="*" 
+            defaultPlacement="Bottom" 
+            _label="Build Light!" 
+            icon="md-toolbox-pad" 
+            class="BuildLightVSM.DeviceListPad" />
+    </Extension>
 </ExtensionModel>
+
