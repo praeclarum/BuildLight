@@ -5,28 +5,20 @@ using MonoDevelop.Ide.Gui;
 using Xwt;
 using Xwt.Backends;
 
+using BuildLight.Common;
+
 namespace BuildLightVSM
 {
     public class DeviceListPad : PadContent
 	{
-		static Control MakeXwtControl()
-		{
-			var vbox = new Xwt.VBox();
-			vbox.PackStart(new Xwt.Label("Hello Chat Room")
-			{
-				Visible = true
-			});
-			vbox.PackStart(new Xwt.Label("Hope you're well")
-			{
-				Visible = true
-			});
-			vbox.Visible = true;
+		DeviceListControl deviceListControl = new DeviceListControl();
 
-			var control = (Gtk.Widget)vbox.GetBackend().NativeWidget;
-			return (Control)control;
+		readonly Control control;
+
+        public DeviceListPad()
+        {
+			control = (Gtk.Widget)deviceListControl.Widget.GetBackend().NativeWidget;
 		}
-
-		readonly object control = MakeXwtControl();
 
         public override Control Control => (Control)control;
     }
