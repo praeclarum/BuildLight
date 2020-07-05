@@ -11,7 +11,7 @@ namespace BuildLight.Common
 
         protected virtual void PresentError(Exception exception)
         {
-            Trace.WriteLine($"ERROR {exception}");
+            Console.WriteLine($"ERROR {exception}");
         }
     }
 }

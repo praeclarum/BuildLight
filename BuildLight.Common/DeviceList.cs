@@ -71,11 +71,7 @@ namespace BuildLight.Common
             Devices.MergeInto(discoveredDevices,
                 match: (a, b) => a.UniqueKey == b.UniqueKey,
                 create: (b) => b,
-                update: (source, destination) => {
-                    destination.Host = source.Host;
-                    destination.Port = source.Port;
-                    destination.LightId = source.LightId;
-                },
+                update: (source, destination) => destination.SyncFrom(source),
                 delete: (a) => { });
 
             RefreshTime = DateTime.Now;
@@ -124,7 +120,7 @@ namespace BuildLight.Common
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex);
+                Console.WriteLine(ex);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace BuildLight.Common
 {
@@ -15,6 +16,13 @@ namespace BuildLight.Common
         public override string ToString()
         {
             return FriendlyName;
+        }
+
+        public void SyncFrom(DeviceInfo source)
+        {
+            Host = source.Host;
+            Port = source.Port;
+            LightId = source.LightId;
         }
     }
 }

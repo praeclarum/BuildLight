@@ -2,6 +2,9 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
+
+#define DEBUG_FAUXMO                Serial
+#define DEBUG_FAUXMO_VERBOSE_TCP    1
 #include <fauxmoESP.h>
 
 // Step 1. Create SECTRET_* defines
@@ -18,9 +21,9 @@ uint8_t greenIntensity = 255;
 
 bool isOn = true;
 
-const char* host = "buildlight";
+//const char* host = "buildlight";
 
-#define ALEXA_ID "Build"
+#define ALEXA_ID "Fritz"
 
 void updateLight ()
 {
@@ -34,7 +37,7 @@ void updateLight ()
   }
 }
 
-WebServer server(80);
+WebServer server(31337);
 
 void handleIndex() {
   server.send(200, "text/plain", "hello chat room!");
@@ -112,9 +115,9 @@ void setup(void) {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  if (MDNS.begin(host)) {
-    Serial.println("MDNS responder started");
-  }
+  //if (MDNS.begin(host)) {
+  //  Serial.println("MDNS responder started");
+  //}
 
   //
   // Setup Alexa Server
@@ -125,11 +128,8 @@ void setup(void) {
   // Setup Color API Server
   //
   server.on("/", handleIndex);
-
   server.on("/color", HTTP_POST, handleColor);
-
   server.onNotFound(handleNotFound);
-
   server.begin();
   Serial.println("HTTP server started");
 }
@@ -151,7 +151,7 @@ fauxmoESP fauxmo;
 void setupAlexa()
 {
     fauxmo.createServer(true); // not needed, this is the default value
-//    fauxmo.setPort(80); // This is required for gen3 devices
+    fauxmo.setPort(80); // This is required for gen3 devices
     fauxmo.enable(true);
     fauxmo.addDevice(ALEXA_ID);
     fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {
