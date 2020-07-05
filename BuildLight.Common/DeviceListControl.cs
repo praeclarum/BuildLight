@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using Xwt;
 
 namespace BuildLight.Common
 {
-    public class DeviceListControl
+    public class DeviceListControl : UIControl
     {
+		readonly DeviceList deviceList = DeviceList.Shared;
 		public ListStore DeviceListStore { get; }
 		public Xwt.Widget Widget { get; }
 
@@ -27,14 +29,29 @@ namespace BuildLight.Common
 				new Xwt.TextCellView(nameField) { Editable = false });
 			deviceListView.Columns.Add(nameColumn);
 
+			var toolbar = new Xwt.HBox();
+			var refreshButton = new Xwt.Button("Refresh");
+			toolbar.PackStart(refreshButton);
+            refreshButton.Clicked += RefreshButton_Clicked;
+
+
 			var vbox = new Xwt.VBox();
-			vbox.PackStart(new Xwt.Label("Hello Chat Room")
-			{
-				Visible = true
-			});
-			vbox.PackStart(deviceListView);
+			vbox.PackStart(toolbar);
+			vbox.PackStart(deviceListView, fill: true, expand: true);
 
 			Widget = vbox;
 		}
-	}
+
+        private async void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+				await deviceList.RefreshAsync();
+            }
+            catch (Exception ex)
+            {
+				PresentError(ex);
+			}
+        }
+    }
 }

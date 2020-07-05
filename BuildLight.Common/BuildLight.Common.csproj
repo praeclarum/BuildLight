@@ -23,15 +23,16 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -63,6 +64,7 @@
     <Compile Include="DeviceList.cs" />
     <Compile Include="DeviceInfo.cs" />
     <Compile Include="DeviceListControl.cs" />
+    <Compile Include="UIControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

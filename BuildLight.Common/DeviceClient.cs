@@ -13,7 +13,7 @@ namespace BuildLight.Common
     {
         static readonly string Host = "buildlight.local";
 
-        static string IpAddress = null;
+        static string? IpAddress = null;
 
         static Random chaosMonkey = new Random();
 

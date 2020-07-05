@@ -11,9 +11,11 @@ namespace BuildLight.Common
 {
     public class DeviceList
     {
-        public ObservableCollection<DeviceInfo> Devices { get; set; }
+        public ObservableCollection<DeviceInfo> Devices { get; } = new ObservableCollection<DeviceInfo>();
 
         const string serviceType = "urn:schemas-upnp-org:device:basic:1";
+
+        public static DeviceList Shared { get; } = new DeviceList();
 
         public DeviceList()
         {

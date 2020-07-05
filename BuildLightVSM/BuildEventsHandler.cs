@@ -11,7 +11,7 @@ namespace BuildLightVSM
     public class BuildEventsHandler
     {
         readonly DeviceClient device = new DeviceClient();
-        readonly DeviceList deviceList = new DeviceList();
+        readonly DeviceList deviceList = DeviceList.Shared;
 
         CancellationTokenSource? startCancellationTokenSource = null;
         CancellationTokenSource? endCancellationTokenSource = null;
