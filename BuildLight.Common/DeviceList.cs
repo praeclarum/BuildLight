@@ -8,6 +8,9 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using ListDiff;
 using System.Threading;
+using System.IO.IsolatedStorage;
+using System.IO;
+using System.Diagnostics;
 
 namespace BuildLight.Common
 {
@@ -20,12 +23,19 @@ namespace BuildLight.Common
         public static DeviceList Shared { get; } = new DeviceList();
         public DateTime? RefreshTime { get; private set; }
 
+        bool needsLoad = true;
+
         public DeviceList()
         {
         }
 
         public async Task RefreshAsync()
         {
+            if (needsLoad)
+            {
+                needsLoad = false;
+                await LoadOldDataAsync();
+            }
             var httpClient = new HttpClient();
             using var ssdpClient = new Discovery.SSDP.Agents.ClientAgent();
             var services = await Task.Run (() => ssdpClient.Discover(serviceType));
@@ -61,10 +71,53 @@ namespace BuildLight.Common
             Devices.MergeInto(discoveredDevices, (a, b) => a.UniqueKey == b.UniqueKey);
 
             RefreshTime = DateTime.Now;
+            SetNeedsSave();
+        }
+
+        const string deviceListFileName = "BuildLight_DeviceList.txt";
+
+        async Task LoadOldDataAsync()
+        {
+            using var isoStore =
+                IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            if (isoStore.FileExists(deviceListFileName))
+            {
+                using var jsonStream = isoStore.OpenFile(deviceListFileName, System.IO.FileMode.Open);
+                using var jsonReader = new StreamReader(jsonStream);
+                var json = await jsonReader.ReadToEndAsync();
+
+                var loadedDevices = JsonConvert.DeserializeObject<DeviceInfo[]>(json);
+                Devices.MergeInto(loadedDevices, (a, b) => a.UniqueKey == b.UniqueKey);
+            }
         }
 
         public void SetNeedsSave()
         {
+            SaveDeviceListAsync().ContinueWith(t =>
+            {
+            });
+        }
+
+        async Task SaveDeviceListAsync()
+        {
+            try
+            {
+                await Task.Delay(1).ConfigureAwait(false);
+
+                using var isoStore =
+                    IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+
+                var json = JsonConvert.SerializeObject(Devices);
+
+                using var jsonStream = isoStore.OpenFile(deviceListFileName, FileMode.Create);
+                using var jsonWriter = new StreamWriter(jsonStream);
+                await jsonWriter.WriteAsync(json);
+
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
         }
 
         public DeviceInfo? GetDeviceWithUniqueKey(string uniqueKey)

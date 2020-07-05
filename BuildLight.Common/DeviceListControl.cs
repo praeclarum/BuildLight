@@ -102,8 +102,7 @@ namespace BuildLight.Common
             {
 				PresentError(ex);
             }
-            
-        }
+		}
 
 		private void PrepopulateList()
 		{
