@@ -68,7 +68,15 @@ namespace BuildLight.Common
             discoveredDevices.Sort((a, b) => a.UniqueKey.CompareTo(b.UniqueKey));
 
             var diff = Devices.Diff(discoveredDevices);
-            Devices.MergeInto(discoveredDevices, (a, b) => a.UniqueKey == b.UniqueKey);
+            Devices.MergeInto(discoveredDevices,
+                match: (a, b) => a.UniqueKey == b.UniqueKey,
+                create: (b) => b,
+                update: (source, destination) => {
+                    destination.Host = source.Host;
+                    destination.Port = source.Port;
+                    destination.LightId = source.LightId;
+                },
+                delete: (a) => { });
 
             RefreshTime = DateTime.Now;
             SetNeedsSave();
