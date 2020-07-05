@@ -55,9 +55,9 @@ namespace BuildLight.Common
                 var content = new ByteArrayContent(color);
                 if (!token.IsCancellationRequested)
                 {
-                    Console.WriteLine($"Settting BuildLight {device.FriendlyName}... (r={red}, g={green}, b={blue})");
+                    //Console.WriteLine($"Settting BuildLight {device.FriendlyName}... (r={red}, g={green}, b={blue})");
                     await httpClient.PostAsync(url, content, cancellationToken: token);
-                    Console.WriteLine($"Set BuildLight {device.FriendlyName} (r={red}, g={green}, b={blue})");
+                    //Console.WriteLine($"Set BuildLight {device.FriendlyName} (r={red}, g={green}, b={blue})");
                     return TryResult.Success;
                 }
                 else
@@ -67,7 +67,7 @@ namespace BuildLight.Common
             }
             catch (TaskCanceledException)
             {
-                Console.WriteLine($"Cancel BuildLight {device.FriendlyName} (r={red}, g={green}, b={blue})");
+                //Console.WriteLine($"Cancel BuildLight {device.FriendlyName} (r={red}, g={green}, b={blue})");
                 return TryResult.Cancelled;
             }
             catch (Exception ex)
