@@ -11,14 +11,13 @@ namespace BuildLight.Common
 {
     public class DeviceClient
     {
-        static readonly string Host = "buildlight.local";
+        readonly static Random chaosMonkey = new Random();
 
-        static string? IpAddress = null;
+        readonly DeviceInfo device;
 
-        static Random chaosMonkey = new Random();
-
-        public DeviceClient()
+        public DeviceClient(DeviceInfo device)
         {
+            this.device = device;
         }
 
         public async Task SetColorAsync(byte red, byte green, byte blue, CancellationToken token)
@@ -31,10 +30,11 @@ namespace BuildLight.Common
                     throw new Exception("CHAOS");
                 }
 #endif
-                var host = await GetIPAsync();
+                var host = device.Host;
+                var port = device.Port;
                 using (var httpClient = new HttpClient())
                 {
-                    var url = $"http://{host}/color?r={red}&g={green}&b={blue}";
+                    var url = $"http://{host}:{port}/color?r={red}&g={green}&b={blue}";
                     var color = new[] { red, green, blue };
                     var content = new ByteArrayContent(color);
                     if (!token.IsCancellationRequested)
@@ -48,21 +48,6 @@ namespace BuildLight.Common
                 //LoggingService.LogError("Can't set color", ex);
                 Debug.Print($"Can't set color - {ex.Message} - {ex}");
             }
-        }
-
-        static async Task<string> GetIPAsync()
-        {
-            if (IpAddress is object)
-            {
-                return IpAddress;
-            }
-            var ips = await System.Net.Dns.GetHostAddressesAsync(Host);
-            if (ips.Length > 0)
-            {
-                IpAddress = ips[0].ToString();
-                return IpAddress;
-            }
-            return Host;
         }
     }
 }

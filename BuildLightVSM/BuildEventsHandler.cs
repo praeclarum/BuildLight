@@ -10,7 +10,6 @@ namespace BuildLightVSM
 {
     public class BuildEventsHandler
     {
-        readonly DeviceClient device = new DeviceClient();
         readonly DeviceList deviceList = DeviceList.Shared;
 
         CancellationTokenSource? startCancellationTokenSource = null;
@@ -39,7 +38,7 @@ namespace BuildLightVSM
                 startCancellationTokenSource?.Cancel();
                 endCancellationTokenSource?.Cancel();
                 startCancellationTokenSource = new CancellationTokenSource();
-                await device.SetColorAsync(255, 255, 0, startCancellationTokenSource.Token);
+                await deviceList.SetColorAsync(255, 255, 0, startCancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
@@ -57,11 +56,11 @@ namespace BuildLightVSM
 
                 if (args.Success)
                 {
-                    await device.SetColorAsync(red: 0, green: 255, 0, endCancellationTokenSource.Token);
+                    await deviceList.SetColorAsync(red: 0, green: 255, 0, endCancellationTokenSource.Token);
                 }
                 else
                 {
-                    await device.SetColorAsync(red: 255, green: 0, 0, endCancellationTokenSource.Token);
+                    await deviceList.SetColorAsync(red: 255, green: 0, 0, endCancellationTokenSource.Token);
                 }
             }
             catch (Exception ex)

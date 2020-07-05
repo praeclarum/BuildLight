@@ -11,5 +11,10 @@ namespace BuildLight.Common
         public bool Enabled { get; set; } = true;
 
         public string UniqueKey => $"{Host}:{Port}:{LightId}";
+
+        public override string ToString()
+        {
+            return FriendlyName;
+        }
     }
 }

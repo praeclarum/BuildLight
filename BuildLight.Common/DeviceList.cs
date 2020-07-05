@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using ListDiff;
+using System.Threading;
 
 namespace BuildLight.Common
 {
@@ -62,9 +63,29 @@ namespace BuildLight.Common
             RefreshTime = DateTime.Now;
         }
 
+        public void SetNeedsSave()
+        {
+        }
+
+        public DeviceInfo? GetDeviceWithUniqueKey(string uniqueKey)
+        {
+            return Devices.FirstOrDefault(x => x.UniqueKey == uniqueKey);
+        }
+
         class LightInfo
         {
             public string Name { get; set; } = "Unknown";
+        }
+
+        public async Task SetColorAsync(byte red, byte green, byte blue, CancellationToken token)
+        {
+            var enabledDevices = Devices.Where(x => x.Enabled);
+            var tasks = enabledDevices.Select(x =>
+            {
+                var client = new DeviceClient(x);
+                return client.SetColorAsync(red, green, blue, token);
+            });
+            await Task.WhenAll(tasks);
         }
     }
 }

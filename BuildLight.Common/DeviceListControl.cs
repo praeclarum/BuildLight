@@ -10,8 +10,10 @@ namespace BuildLight.Common
 		readonly DeviceList deviceList = DeviceList.Shared;
 
 		readonly ListStore deviceListStore;
-		readonly DataField<bool>? enabledField = new Xwt.DataField<bool>();
-		readonly DataField<string>? nameField = new Xwt.DataField<string>();
+		readonly DataField<bool> enabledField = new Xwt.DataField<bool>();
+		readonly DataField<string> nameField = new Xwt.DataField<string>();
+		readonly DataField<string> idField = new Xwt.DataField<string>();
+		readonly ListView deviceListView;
 
 		readonly Label statusLabel = new Label();
 		readonly Button refreshButton = new Xwt.Button("Refresh");
@@ -24,8 +26,8 @@ namespace BuildLight.Common
             //
             // Device List
             //
-    		deviceListStore = new ListStore(enabledField, nameField);
-			var deviceListView = new ListView(deviceListStore);
+    		deviceListStore = new ListStore(idField, enabledField, nameField);
+            deviceListView = new ListView(deviceListStore);
 			var enabledColumn = new Xwt.ListViewColumn(
 				"Enabled",
 				new Xwt.CheckBoxCellView(enabledField) { Editable = true });
@@ -34,8 +36,10 @@ namespace BuildLight.Common
 				"Device",
 				new Xwt.TextCellView(nameField) { Editable = false });
 			deviceListView.Columns.Add(nameColumn);
+
 			deviceList.Devices.CollectionChanged += Devices_CollectionChanged;
 			PrepopulateList();
+			deviceListView.ButtonPressed += DeviceListView_ButtonPressed;
 
 			//
 			// Toolbar
@@ -54,6 +58,18 @@ namespace BuildLight.Common
 
 			Widget = vbox;
 		}
+
+        private void DeviceListView_ButtonPressed(object sender, ButtonEventArgs e)
+        {
+			var rowIndex = deviceListView.GetRowAtPosition(e.Position);
+			var uniqueKey = deviceListStore.GetValue<string>(rowIndex, idField);
+			if (deviceList.GetDeviceWithUniqueKey(uniqueKey) is DeviceInfo device)
+			{
+				var enabled = deviceListStore.GetValue<bool>(rowIndex, enabledField);
+				device.Enabled = !enabled;
+				deviceList.SetNeedsSave();
+			}
+        }
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -102,6 +118,7 @@ namespace BuildLight.Common
 		private void InsertDevice(int index, DeviceInfo device)
         {
 			var insertedIndex = deviceListStore.InsertRowBefore(index);
+			deviceListStore.SetValue(insertedIndex, idField, device.UniqueKey);
 			deviceListStore.SetValue(insertedIndex, enabledField, device.Enabled);
 			deviceListStore.SetValue(insertedIndex, nameField, device.FriendlyName);
 		}
