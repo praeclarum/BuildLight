@@ -10,6 +10,7 @@
     <PackageReference Include="ssdp" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xwt.Gtk.Mac" Version="0.2.225" />
+    <PackageReference Include="ListDiff" Version="1.1.28" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />

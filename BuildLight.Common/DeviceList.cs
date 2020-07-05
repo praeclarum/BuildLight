@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
+using ListDiff;
 
 namespace BuildLight.Common
 {
@@ -16,6 +17,7 @@ namespace BuildLight.Common
         const string serviceType = "urn:schemas-upnp-org:device:basic:1";
 
         public static DeviceList Shared { get; } = new DeviceList();
+        public DateTime? RefreshTime { get; private set; }
 
         public DeviceList()
         {
@@ -51,7 +53,13 @@ namespace BuildLight.Common
                     });
                 }
             }
-            Console.WriteLine(discoveredDevices);
+
+            discoveredDevices.Sort((a, b) => a.UniqueKey.CompareTo(b.UniqueKey));
+
+            var diff = Devices.Diff(discoveredDevices);
+            Devices.MergeInto(discoveredDevices, (a, b) => a.UniqueKey == b.UniqueKey);
+
+            RefreshTime = DateTime.Now;
         }
 
         class LightInfo

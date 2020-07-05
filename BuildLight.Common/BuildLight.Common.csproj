@@ -57,6 +57,9 @@
       <HintPath>..\packages\Xwt.Gtk.0.2.225\lib\net472\Xwt.Gtk.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="ListDiff">
+      <HintPath>..\packages\ListDiff.1.1.28\lib\netstandard1.0\ListDiff.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceClient.cs" />

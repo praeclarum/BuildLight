@@ -9,5 +9,7 @@ namespace BuildLight.Common
         public string FriendlyName { get; set; } = "Unknown";
         public string LightId { get; set; } = "1";
         public bool Enabled { get; set; } = true;
+
+        public string UniqueKey => $"{Host}:{Port}:{LightId}";
     }
 }
