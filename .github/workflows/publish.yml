@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Download Assets
+        uses: i3h/download-release-asset@v1.2.0
+        with:
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          tag: ${{ github.event.release.tag_name }}
+          file: BuildLightVS.vsix
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Script
+        run: |
+          # Find VsixPublisher
+          $Installation = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -format json | ConvertFrom-Json
+          $Path = $Installation.installationPath
+          Write-Host $Path
+          $VsixPublisher = Join-Path -Path $Path -ChildPath "VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe" -Resolve
+          & $VsixPublisher publish -payload ".\BuildLightVS.vsix" -publishManifest ".\build\extension-manifest.json" -personalAccessToken $env:PersonalAccessToken -ignoreWarnings "VSIXValidatorWarning01,VSIXValidatorWarning02,VSIXValidatorWarning08"
+        env:
+          PersonalAccessToken: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
