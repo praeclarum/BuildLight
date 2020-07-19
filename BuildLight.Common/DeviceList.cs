@@ -15,7 +15,8 @@ namespace BuildLight.Common
     public class DeviceList
     {
         readonly object devicesLock = new object();
-        public ObservableCollection<DeviceInfo> Devices { get; } = new ObservableCollection<DeviceInfo>();
+        List<DeviceInfo> Devices { get; } = new List<DeviceInfo>();
+        public event EventHandler? CollectionChanged;
 
         const string serviceType = "urn:schemas-upnp-org:device:basic:1";
 
@@ -78,6 +79,8 @@ namespace BuildLight.Common
 
             RefreshTime = DateTime.Now;
             SetNeedsSave();
+
+            CollectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         const string deviceListFileName = "BuildLight_DeviceList.txt";
