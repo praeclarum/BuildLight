@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json.schemastore.org/vsix-publish",
+    "identity": {
+        "internalName": "BuildLight",
+        "displayName": "Build Light",
+        "tags": [
+            "Build",
+            "Tools"
+        ]
+    },
+    "icons": {
+        "default": "../BuildLightVS/Resources/BuildLight.png"
+    },
+    "screenshots": [
+        {
+            "path": "../docs/screen1.png"
+        }
+    ],
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/praeclarum/BuildLight/blob/master/README.md"
+        }
+    },
+    "categories": [
+        "build"
+    ],
+    "tags": [
+        "Build",
+        "Tools"
+    ],
+    "overview": "../docs/Overview.md",
+    "priceCategory": "free",
+    "publisher": "AlexHedley",
+    "name": "Build Light",
+    "description": "Display your IDE's build status using RGB LEDs and IoT devices!",
+    "public": true,
+    "private": false,
+    "qna": false,
+    "repo": "https://github.com/praeclarum/BuildLight"
+}

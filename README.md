@@ -48,6 +48,11 @@ Run, open a new project in the experimental edition and build a project.
 
 ### Other
 
+- [Settings](docs/settings.md)
 - [Setup](docs/Setup.md)
 - [Testing](docs/Testing.md)
 - [Errors](docs/Errors.md)
+
+### Contributors
+
+| [![praeclarum](https://avatars3.githubusercontent.com/u/323548?s=50&v=4)](https://github.com/praeclarum/) [Frank A. Krueger](https://github.com/praeclarum/) [Owner] | [![AlexHedley](https://avatars3.githubusercontent.com/u/1573469?s=50&v=4)](https://github.com/AlexHedley/) [AlexHedley](https://github.com/AlexHedley/) |
