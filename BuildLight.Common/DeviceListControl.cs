@@ -73,8 +73,17 @@ namespace BuildLight.Common
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            try
-            {
+			//
+			// This method is being called from within devicesLock in DeviceList.cs which I don't love, but
+			// it should be okay given as long as we don't call back into the 'deviceList' instance or modify
+			// deviceList.Devices from this method
+			//
+			// Possible solution would be to make DeviceList.Devices private and
+			// manually monitor for changes and & raise a custom event from DeviceList (preferably outside of devicesLock)
+			//
+
+			try
+			{
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
@@ -107,7 +116,7 @@ namespace BuildLight.Common
 		private void PrepopulateList()
 		{
 			var index = 0;
-			foreach (var device in deviceList.Devices)
+			foreach (var device in deviceList.GetDevicesCopy())
 			{
 				InsertDevice(index, device);
 				index++;

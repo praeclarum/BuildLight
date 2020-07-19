@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Dynamic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -10,12 +9,12 @@ using ListDiff;
 using System.Threading;
 using System.IO.IsolatedStorage;
 using System.IO;
-using System.Diagnostics;
 
 namespace BuildLight.Common
 {
     public class DeviceList
     {
+        readonly object devicesLock = new object();
         public ObservableCollection<DeviceInfo> Devices { get; } = new ObservableCollection<DeviceInfo>();
 
         const string serviceType = "urn:schemas-upnp-org:device:basic:1";
@@ -67,12 +66,15 @@ namespace BuildLight.Common
 
             discoveredDevices.Sort((a, b) => a.UniqueKey.CompareTo(b.UniqueKey));
 
-            var diff = Devices.Diff(discoveredDevices);
-            Devices.MergeInto(discoveredDevices,
-                match: (a, b) => a.UniqueKey == b.UniqueKey,
-                create: (b) => b,
-                update: (source, destination) => destination.SyncFrom(source),
-                delete: (a) => { });
+            lock (devicesLock)
+            {
+	            // var diff = Devices.Diff(discoveredDevices);
+	            Devices.MergeInto(discoveredDevices,
+			            match: (a, b) => a.UniqueKey == b.UniqueKey,
+			            create: (b) => b,
+			            update: (source, destination) => destination.SyncFrom(source),
+			            delete: (a) => { });
+            }
 
             RefreshTime = DateTime.Now;
             SetNeedsSave();
@@ -91,7 +93,10 @@ namespace BuildLight.Common
                 var json = await jsonReader.ReadToEndAsync();
 
                 var loadedDevices = JsonConvert.DeserializeObject<DeviceInfo[]>(json);
-                Devices.MergeInto(loadedDevices, (a, b) => a.UniqueKey == b.UniqueKey);
+                lock (devicesLock)
+                {
+	                Devices.MergeInto(loadedDevices, (a, b) => a.UniqueKey == b.UniqueKey);
+                }
             }
         }
 
@@ -111,7 +116,7 @@ namespace BuildLight.Common
                 using var isoStore =
                     IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-                var json = JsonConvert.SerializeObject(Devices);
+                var json = JsonConvert.SerializeObject(GetDevicesCopy());
 
                 using var jsonStream = isoStore.OpenFile(deviceListFileName, FileMode.Create);
                 using var jsonWriter = new StreamWriter(jsonStream);
@@ -126,7 +131,7 @@ namespace BuildLight.Common
 
         public DeviceInfo? GetDeviceWithUniqueKey(string uniqueKey)
         {
-            return Devices.FirstOrDefault(x => x.UniqueKey == uniqueKey);
+            return GetDevicesCopy().FirstOrDefault(x => x.UniqueKey == uniqueKey);
         }
 
         class LightInfo
@@ -136,13 +141,21 @@ namespace BuildLight.Common
 
         public async Task SetColorAsync(byte red, byte green, byte blue, CancellationToken token)
         {
-            var enabledDevices = Devices.Where(x => x.Enabled);
+            var enabledDevices = GetDevicesCopy().Where(x => x.Enabled);
             var tasks = enabledDevices.Select(x =>
             {
                 var client = new DeviceClient(x);
                 return client.SetColorAsync(red, green, blue, token);
             });
             await Task.WhenAll(tasks);
+        }
+
+        public List<DeviceInfo> GetDevicesCopy()
+        {
+            lock(devicesLock)
+            {
+                return new List<DeviceInfo>(Devices);
+            }
         }
     }
 }

@@ -42,7 +42,8 @@ namespace BuildLightVS
         private Events _events;
         private BuildEvents _buildEvents;
 
-        readonly DeviceClient device = new DeviceClient();
+        // readonly DeviceClient device = new DeviceClient();
+        readonly DeviceClient device = new DeviceClient(new DeviceInfo()); // Shea 2020-07-09 fix build error (temp)
         CancellationTokenSource startCancellationTokenSource = null;
         CancellationTokenSource endCancellationTokenSource = null;
 
