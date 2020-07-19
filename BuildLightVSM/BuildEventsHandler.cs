@@ -14,6 +14,7 @@ namespace BuildLightVSM
 
         CancellationTokenSource? startCancellationTokenSource = null;
         CancellationTokenSource? endCancellationTokenSource = null;
+        bool cummulativeBuildSuccess = false;
 
         public BuildEventsHandler()
         {
@@ -38,6 +39,7 @@ namespace BuildLightVSM
                 startCancellationTokenSource?.Cancel();
                 endCancellationTokenSource?.Cancel();
                 startCancellationTokenSource = new CancellationTokenSource();
+                cummulativeBuildSuccess = true;
                 await deviceList.SetColorAsync(0, 0, 255, startCancellationTokenSource.Token);
             }
             catch (Exception ex)
@@ -54,7 +56,10 @@ namespace BuildLightVSM
                 endCancellationTokenSource?.Cancel();
                 endCancellationTokenSource = new CancellationTokenSource();
 
-                if (args.Success)
+                var buildStatus = args.Success;
+                cummulativeBuildSuccess = cummulativeBuildSuccess && buildStatus;
+
+                if (cummulativeBuildSuccess)
                 {
                     await deviceList.SetColorAsync(red: 0, green: 255, 0, endCancellationTokenSource.Token);
                 }
