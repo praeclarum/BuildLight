@@ -30,7 +30,7 @@ using Mono.Addins.Description;
 [assembly: Addin(
     "BuildLightVSM",
     Namespace = "BuildLightVSM",
-    Version = "0.3" 
+    Version = "0.4" 
 )]
 
 [assembly: AddinName("Build Light")]
