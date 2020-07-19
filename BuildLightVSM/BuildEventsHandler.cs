@@ -38,7 +38,7 @@ namespace BuildLightVSM
                 startCancellationTokenSource?.Cancel();
                 endCancellationTokenSource?.Cancel();
                 startCancellationTokenSource = new CancellationTokenSource();
-                await deviceList.SetColorAsync(255, 255, 0, startCancellationTokenSource.Token);
+                await deviceList.SetColorAsync(0, 0, 255, startCancellationTokenSource.Token);
             }
             catch (Exception ex)
             {

@@ -16,9 +16,11 @@ const char* password = SECRET_PASSWORD;
 // Step 2. Connect pins 27 & 26 to RED and GREEN on light strip
 const int redPin = 27;
 const int greenPin = 26;
+const int bluePin = 25;
 
 uint8_t redIntensity = 0;
 uint8_t greenIntensity = 255;
+uint8_t blueIntensity = 0;
 
 bool isOn = true;
 
@@ -31,10 +33,12 @@ void updateLight ()
   if (isOn) {
       digitalWrite(redPin, redIntensity > 0 ? 0 : 1);
       digitalWrite(greenPin, greenIntensity > 0 ? 0 : 1);
+      digitalWrite(bluePin, blueIntensity > 0 ? 0 : 1);
   }
   else {
       digitalWrite(redPin, 1);
       digitalWrite(greenPin, 1);
+      digitalWrite(bluePin, 1);
   }
 }
 
@@ -68,6 +72,7 @@ void handleColor() {
 
   redIntensity = red;
   greenIntensity = green;
+  blueIntensity = blue;
   updateLight();
   
   Serial.printf("SET COLOR red=%d, green=%d, blue=%d\n",
@@ -95,6 +100,8 @@ void setup(void) {
   digitalWrite(redPin, 1);
   pinMode(greenPin, OUTPUT);
   digitalWrite(greenPin, 1);
+  pinMode(bluePin, OUTPUT);
+  digitalWrite(bluePin, 1);
   updateLight();
 
   Serial.begin(115200);
