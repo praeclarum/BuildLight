@@ -46,17 +46,18 @@ namespace BuildLightVS
         readonly DeviceClient device = new DeviceClient(new DeviceInfo()); // Shea 2020-07-09 fix build error (temp)
         CancellationTokenSource startCancellationTokenSource = null;
         CancellationTokenSource endCancellationTokenSource = null;
+		bool cummulativeBuildSuccess = false;
 
-        #region Package Members
+		#region Package Members
 
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
-        /// </summary>
-        /// <param name="cancellationToken">A cancellation token to monitor for initialization cancellation, which can occur when VS is shutting down.</param>
-        /// <param name="progress">A provider for progress updates.</param>
-        /// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+		/// <summary>
+		/// Initialization of the package; this method is called right after the package is sited, so this is the place
+		/// where you can put all the initialization code that rely on services provided by VisualStudio.
+		/// </summary>
+		/// <param name="cancellationToken">A cancellation token to monitor for initialization cancellation, which can occur when VS is shutting down.</param>
+		/// <param name="progress">A provider for progress updates.</param>
+		/// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
+		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await base.InitializeAsync(cancellationToken, progress);
 
@@ -85,8 +86,11 @@ namespace BuildLightVS
                 startCancellationTokenSource?.Cancel();
                 endCancellationTokenSource?.Cancel();
                 endCancellationTokenSource = new CancellationTokenSource();
+				
+				var buildStatus = Success;
+				cummulativeBuildSuccess = cummulativeBuildSuccess && buildStatus;
 
-                if (Success)
+				if (cummulativeBuildSuccess)
                 {
                     await device.SetColorAsync(red: 0, green: 255, 0, endCancellationTokenSource.Token);
                 }
@@ -133,7 +137,8 @@ namespace BuildLightVS
                 startCancellationTokenSource?.Cancel();
                 endCancellationTokenSource?.Cancel();
                 startCancellationTokenSource = new CancellationTokenSource();
-                await device.SetColorAsync(255, 255, 0, startCancellationTokenSource.Token);
+				cummulativeBuildSuccess = true;
+				await device.SetColorAsync(0, 0, 255, startCancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
