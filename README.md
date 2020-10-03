@@ -55,4 +55,4 @@ Run, open a new project in the experimental edition and build a project.
 
 ### Contributors
 
-| [![praeclarum](https://avatars3.githubusercontent.com/u/323548?s=50&v=4)](https://github.com/praeclarum/) [Frank A. Krueger](https://github.com/praeclarum/) [Owner] | [![AlexHedley](https://avatars3.githubusercontent.com/u/1573469?s=50&v=4)](https://github.com/AlexHedley/) [AlexHedley](https://github.com/AlexHedley/) |
+| [![praeclarum](https://avatars3.githubusercontent.com/u/323548?s=50&v=4)](https://github.com/praeclarum/) [Frank A. Krueger](https://github.com/praeclarum/) [Owner] | [![AlexHedley](https://avatars3.githubusercontent.com/u/1573469?s=50&v=4)](https://github.com/AlexHedley/) [AlexHedley](https://github.com/AlexHedley/) | [![SheaCodes](https://avatars3.githubusercontent.com/u/10730498?s=50&v=4)](https://github.com/SheaCodes/) [SheaCodes](https://github.com/SheaCodes/)
