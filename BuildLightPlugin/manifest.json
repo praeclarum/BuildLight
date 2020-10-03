@@ -1,0 +1,44 @@
+{
+  "Actions": [
+    {
+      "Icon": "images/actionIcon",
+      "Name": "BuildLightAction",
+      "States": [
+        {
+          "Image": "images/actionDefaultImage",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "The first action for the BuildLight Stream Deck plugin",
+      "UUID": "com.thefrankshow.buildlight.DefaultPluginAction"
+    }
+  ],
+	"Category": "Your Plugin Category",
+	"CategoryIcon": "images/category/categoryIcon.png",
+	"Disabled":  false,
+	"Author": "Your Name",
+	"CodePathWin": "BuildLightPlugin.exe",
+	"CodePathMac":  "BuildLightPlugin",
+  "PropertyInspectorPath": "property_inspector/property_inspector.html",
+  "Description": "Description of BuildLight.",
+  "Name": "BuildLight",
+  "Icon": "images/pluginIcon",
+  "URL": "https://www.elgato.com/gaming/stream-deck",
+  "Version": "1.0",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion":  "4.1"
+	},
+	"OS": [
+    {
+        "Platform": "mac",
+        "MinimumVersion" : "10.11"
+    },
+    {
+        "Platform": "windows",
+        "MinimumVersion" : "10"
+    }
+  ]
+}
