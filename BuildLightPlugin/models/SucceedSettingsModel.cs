@@ -1,7 +1,7 @@
 ﻿namespace BuildLightPlugin.Models
 {
-  public class CounterSettingsModel
-  {
-	public int Counter { get; set; } = 0;
-  }
+	public class SucceedSettingsModel
+	{
+		public string Color { get; set; } = "#008000"; // Green (0, 128, 0)
+	}
 }

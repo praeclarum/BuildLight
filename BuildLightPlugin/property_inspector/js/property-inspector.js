@@ -16,16 +16,15 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
 
   //initialize values
   if (actionInfo.payload.settings.settingsModel) {
-	settingsModel.Counter = actionInfo.payload.settings.settingsModel.Counter;
+	  settingsModel.Color = actionInfo.payload.settings.settingsModel.Color;
   }
 
-  document.getElementById('txtCounterValue').value = settingsModel.Counter;
+	document.getElementById('lightcolor').value = settingsModel.Color;
 
   websocket.onopen = function () {
 	var json = { event: inRegisterEvent, uuid: inUUID };
 	// register property inspector to Stream Deck
 	websocket.send(JSON.stringify(json));
-
   };
 
   websocket.onmessage = function (evt) {
@@ -35,8 +34,8 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
 	switch (sdEvent) {
 	  case "didReceiveSettings":
 		if (jsonObj.payload.settings.settingsModel.Counter) {
-		  settingsModel.Counter = jsonObj.payload.settings.settingsModel.Counter;
-		  document.getElementById('txtCounterValue').value = settingsModel.Counter;
+			settingsModel.Counter = jsonObj.payload.settings.settingsModel.Color;
+			document.getElementById('lightcolor').value = settingsModel.Color;
 		}
 		break;
 	  default:

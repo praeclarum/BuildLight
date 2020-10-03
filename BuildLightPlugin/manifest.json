@@ -1,44 +1,74 @@
 {
-  "Actions": [
-    {
-      "Icon": "images/actionIcon",
-      "Name": "BuildLightAction",
-      "States": [
+    "Actions": [
         {
-          "Image": "images/actionDefaultImage",
-          "TitleAlignment": "middle",
-          "FontSize": "16"
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionFail",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Fail Action",
+            "UUID": "com.thefrankshow.buildlight.action.fail",
+            "PropertyInspectorPath": "property_inspector/property_inspector_fail.html"
+        },
+        {
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionSucceed",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Succeed Action",
+            "UUID": "com.thefrankshow.buildlight.action.succeed",
+            "PropertyInspectorPath": "property_inspector/property_inspector_succeed.html"
+        },
+        {
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionAny",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Any Action",
+            "UUID": "com.thefrankshow.buildlight.action.any",
+            "PropertyInspectorPath": "property_inspector/property_inspector.html"
         }
-      ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "The first action for the BuildLight Stream Deck plugin",
-      "UUID": "com.thefrankshow.buildlight.DefaultPluginAction"
-    }
-  ],
-	"Category": "Your Plugin Category",
-	"CategoryIcon": "images/category/categoryIcon.png",
-	"Disabled":  false,
-	"Author": "Your Name",
-	"CodePathWin": "BuildLightPlugin.exe",
-	"CodePathMac":  "BuildLightPlugin",
-  "PropertyInspectorPath": "property_inspector/property_inspector.html",
-  "Description": "Description of BuildLight.",
-  "Name": "BuildLight",
-  "Icon": "images/pluginIcon",
-  "URL": "https://www.elgato.com/gaming/stream-deck",
-  "Version": "1.0",
+    ],
+    "Category": "Your Plugin Category",
+    "CategoryIcon": "images/category/categoryIcon.png",
+    "Disabled":  false,
+    "Author": "The Frank Show",
+    "CodePathWin": "BuildLightPlugin.exe",
+    "CodePathMac":  "BuildLightPlugin",
+    "Description": "BuildLight StreamDeck Plugins.",
+    "Name": "BuildLight",
+    "Icon": "images/pluginIcon",
+    "URL": "https://www.elgato.com/gaming/stream-deck",
+    "Version": "1.0",
 	"SDKVersion": 2,
 	"Software": {
 		"MinimumVersion":  "4.1"
 	},
 	"OS": [
-    {
-        "Platform": "mac",
-        "MinimumVersion" : "10.11"
-    },
-    {
-        "Platform": "windows",
-        "MinimumVersion" : "10"
-    }
-  ]
+        {
+            "Platform": "mac",
+            "MinimumVersion" : "10.11"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion" : "10"
+        }
+    ]
 }

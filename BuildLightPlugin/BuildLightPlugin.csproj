@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -42,6 +42,12 @@
 		</Content>
 		<Content Include="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="property_inspector\property_inspector_fail.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="property_inspector\property_inspector_succeed.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
@@ -97,18 +103,15 @@
 	<!-- Include the README.md as part of the project for easy reference -->
 	<ItemGroup>
 		<Content Include="README.md">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
 	<!-- Post build scripts that must not be deployed with the executable -->
 	<ItemGroup>
-		<None Update="RegisterPluginAndStartStreamDeck.ps1">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</None>
-		<None Update="RegisterPluginAndStartStreamDeck.sh">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</None>
+	  <None Remove="property_inspector\property_inspector %28copy%29.html" />
+	  <None Remove="property_inspector\property_inspector_fail %28copy%29.html" />
 	</ItemGroup>
-
+	<ItemGroup>
+	  <Folder Include="Actions\" />
+	</ItemGroup>
 </Project>

@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace BuildLightPlugin
 {
-  [ActionUuid(Uuid="com.thefrankshow.buildlight.action.fail")]
-  public class FailAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
+  [ActionUuid(Uuid="com.thefrankshow.buildlight.action.succeed")]
+  public class FailAction : BaseStreamDeckActionWithSettingsModel<Models.SucceedSettingsModel>
   {
 	public override async Task OnKeyUp(StreamDeckEventPayload args)
 	{
-	  SettingsModel.Counter++;
-	  await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
+	  await Manager.SetTitleAsync(args.context, SettingsModel.Color.ToString());
 	  
 	  //update settings
 	  await Manager.SetSettingsAsync(args.context, SettingsModel);

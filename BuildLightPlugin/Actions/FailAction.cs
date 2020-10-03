@@ -7,46 +7,13 @@ using System.Threading.Tasks;
 
 namespace BuildLightPlugin
 {
-  [ActionUuid(Uuid="com.thefrankshow.buildlight")]
-  public class BuildLightAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
+  [ActionUuid(Uuid="com.thefrankshow.buildlight.action.fail")]
+  public class FailAction : BaseStreamDeckActionWithSettingsModel<Models.FailSettingsModel>
   {
-	// Cheer 342 cpayette 15/2/19
-	// Cheer 100 devlead 15/2/19
-	// Cheer 200 kevin_downs Jan 11, 2019
-	// Cheer 401 cpayette Jan 15, 2019
-	// Cheer 2501 themikejolley Jan 15, 2019
-	// Cheer 100 wolfgang_blitz Jan 15, 2019
-	// Cheer 157 jongalloway Jan 15, 2019
-	// Cheer 100 johanb Jan 15, 2019
-	// Cheer 400 faniereynders Jan 15, 2019
-	// Cheer 100 TomMcQ Jan 15, 2019
-	// Cheer 361 Crazy240sx Jan 15, 2019
-	// Cheer 600 yarrgh Jan 15, 2019
-	// Cheer 1030 kulu83 Jan 15, 2019
-	// Cheer 2500 Auth0Bobby Jan 15, 2019
-
 	public override async Task OnKeyUp(StreamDeckEventPayload args)
 	{
-	  SettingsModel.Counter++;
-	  await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
-
-	  if (SettingsModel.Counter % 10 == 0)
-	  {
-		await Manager.ShowAlertAsync(args.context);
-	  }
-	  else if (SettingsModel.Counter % 15 == 0)
-	  {
-		await Manager.OpenUrlAsync(args.context, "https://www.bing.com");
-	  }
-	  else if (SettingsModel.Counter % 3 == 0)
-	  {
-		await Manager.ShowOkAsync(args.context);
-	  }
-	  else if (SettingsModel.Counter % 7 == 0)
-	  {
-		await Manager.SetImageAsync(args.context, "images/Fritz.png");
-	  }
-
+	  await Manager.SetTitleAsync(args.context, SettingsModel.Color.ToString());
+	  
 	  //update settings
 	  await Manager.SetSettingsAsync(args.context, SettingsModel);
 	}
