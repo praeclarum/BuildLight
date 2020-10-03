@@ -1,0 +1,74 @@
+{
+    "Actions": [
+        {
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionFail",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Fail Action",
+            "UUID": "com.thefrankshow.buildlight.action.fail",
+            "PropertyInspectorPath": "property_inspector/property_inspector_fail.html"
+        },
+        {
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionSucceed",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Succeed Action",
+            "UUID": "com.thefrankshow.buildlight.action.succeed",
+            "PropertyInspectorPath": "property_inspector/property_inspector_succeed.html"
+        },
+        {
+            "Icon": "images/actionIcon",
+            "Name": "BuildLightActionAny",
+            "States": [
+                {
+                    "Image": "images/actionDefaultImage",
+                    "TitleAlignment": "middle",
+                    "FontSize": "16"
+                }
+            ],
+            "SupportedInMultiActions": false,
+            "Tooltip": "BuildLight Any Action",
+            "UUID": "com.thefrankshow.buildlight.action.any",
+            "PropertyInspectorPath": "property_inspector/property_inspector.html"
+        }
+    ],
+    "Category": "Your Plugin Category",
+    "CategoryIcon": "images/category/categoryIcon.png",
+    "Disabled":  false,
+    "Author": "The Frank Show",
+    "CodePathWin": "BuildLightPlugin.exe",
+    "CodePathMac":  "BuildLightPlugin",
+    "Description": "BuildLight StreamDeck Plugins.",
+    "Name": "BuildLight",
+    "Icon": "images/pluginIcon",
+    "URL": "https://www.elgato.com/gaming/stream-deck",
+    "Version": "1.0",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion":  "4.1"
+	},
+	"OS": [
+        {
+            "Platform": "mac",
+            "MinimumVersion" : "10.11"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion" : "10"
+        }
+    ]
+}

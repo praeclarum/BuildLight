@@ -7,6 +7,7 @@
         <MoreInfo>https://github.com/praeclarum/BuildLight/blob/master/README.md</MoreInfo>
         <ReleaseNotes>https://github.com/praeclarum/BuildLight/blob/master/README.md</ReleaseNotes>
         <Icon>Resources\BuildLight.ico</Icon>
+        <PreviewImage>Resources\BuildLight.png</PreviewImage>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
